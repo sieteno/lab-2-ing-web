@@ -1,0 +1,517 @@
+/* 
+   PARTE 1: ARREGLOS
+                     */
+
+const inventario = ["teclado", "mouse", "monitor", "audífonos"];
+
+// 1.1 Obtener el último elemento
+console.log("Último elemento:", inventario[inventario.length - 1]);
+
+
+// Agregar elementos sin modificar el arreglo original
+function agregarItems(arr, alInicio, alFinal) {
+    return [alInicio, ...arr, alFinal];
+}
+
+console.log(
+    "Inventario modificado:",
+    agregarItems(inventario, "cable HDMI", "webcam")
+);
+
+console.log("Inventario original:", inventario);
+
+
+
+/* 
+   1.2 Filtrado y transformación
+                                  */
+
+const temperaturas = [18, 22, 25, 30, 15, 19, 27];
+
+
+// Convertir Celsius a Fahrenheit
+function aFahrenheit(arr) {
+    return arr.map(temp => (temp * 9 / 5) + 32);
+}
+
+console.log(
+    "Temperaturas en Fahrenheit:",
+    aFahrenheit(temperaturas)
+);
+
+
+// Obtener temperaturas mayores al umbral
+function diasCalurosos(arr, umbral) {
+    return arr.filter(temp => temp > umbral);
+}
+
+console.log(
+    "Días calurosos:",
+    diasCalurosos(temperaturas, 25)
+);
+
+
+// Calcular promedio
+function promedio(arr) {
+    return arr.reduce((acumulador, temp) => acumulador + temp, 0) / arr.length;
+}
+
+console.log(
+    "Temperatura promedio:",
+    promedio(temperaturas)
+);
+
+
+// Obtener temperatura máxima
+function temperaturaMaxima(arr) {
+    return Math.max(...arr);
+}
+
+console.log(
+    "Temperatura máxima:",
+    temperaturaMaxima(temperaturas)
+);
+
+
+
+/* 
+   1.3 Búsqueda y orden
+                        */
+
+// Buscar el primer elemento mayor a un valor
+function buscarPrimerMayorA(arr, valor) {
+    return arr.find(elemento => elemento > valor);
+}
+
+console.log(
+    "Primer valor mayor a 24:",
+    buscarPrimerMayorA(temperaturas, 24)
+);
+
+
+// Ordenar de mayor a menor sin modificar el arreglo original
+function ordenarDescendente(arr) {
+    return [...arr].sort((a, b) => b - a);
+}
+
+console.log(
+    "Temperaturas ordenadas:",
+    ordenarDescendente(temperaturas)
+);
+
+console.log(
+    "Arreglo original:",
+    temperaturas
+);
+
+
+
+/* 
+   PARTE 2: FUNCIONES
+                      */
+
+
+/* 
+   2.1 Funciones como parámetros (callbacks)
+                                              */
+
+function procesarLista(arr, accion) {
+    const nuevoArreglo = [];
+
+    arr.forEach(elemento => {
+        nuevoArreglo.push(accion(elemento));
+    });
+
+    return nuevoArreglo;
+}
+
+
+// Duplicar números
+const numeros = [1, 2, 3, 4, 5];
+
+const duplicados = procesarLista(
+    numeros,
+    numero => numero * 2
+);
+
+console.log(
+    "Números duplicados:",
+    duplicados
+);
+
+
+// Convertir palabras a mayúsculas
+const palabras = ["javascript", "html", "css"];
+
+const mayusculas = procesarLista(
+    palabras,
+    palabra => palabra.toUpperCase()
+);
+
+console.log(
+    "Palabras en mayúsculas:",
+    mayusculas
+);
+
+
+/*
+procesarLista se parece a map porque ambas recorren un arreglo,
+aplican una función a cada elemento y generan un nuevo arreglo.
+
+JavaScript incluye map porque esta operación es muy común y permite
+realizarla de forma más sencilla y legible.
+*/
+
+
+
+/* 
+   2.2 Funciones flecha y funciones de orden superior
+                                                      */
+
+function crearMultiplicador(factor) {
+    return numero => numero * factor;
+}
+
+const porTres = crearMultiplicador(3);
+
+console.log(
+    "10 multiplicado por 3:",
+    porTres(10)
+);
+
+
+/*
+Un closure ocurre cuando una función interna conserva acceso
+a las variables de la función externa incluso después de que
+esta haya terminado.
+
+En este ejercicio, la función flecha:
+
+numero => numero * factor
+
+recuerda el valor de "factor" recibido por crearMultiplicador.
+*/
+
+
+
+/* 
+   2.3 Validación y manejo de errores
+                                        */
+
+function dividirSeguro(a, b) {
+
+    if (b === 0) {
+        throw new Error("No se puede dividir entre cero.");
+    }
+
+    return a / b;
+}
+
+
+// Caso exitoso
+try {
+
+    console.log(
+        "División exitosa:",
+        dividirSeguro(10, 2)
+    );
+
+} catch (error) {
+
+    console.log(
+        "Error:",
+        error.message
+    );
+}
+
+
+// Caso con error
+try {
+
+    console.log(
+        dividirSeguro(10, 0)
+    );
+
+} catch (error) {
+
+    console.log(
+        "Error capturado:",
+        error.message
+    );
+}
+
+
+
+/* 
+   PARTE 3: OBJETOS
+                    */
+
+
+/* 
+    3.1 Modelando una entidad
+                               */
+
+const producto = {
+
+    nombre: "Teclado mecánico",
+    precio: 45,
+    stock: 12,
+
+    aplicarDescuento(porcentaje) {
+        return this.precio - (this.precio * porcentaje / 100);
+    }
+
+};
+
+console.log(
+    "Precio original:",
+    producto.precio
+);
+
+console.log(
+    "Precio con 20% de descuento:",
+    producto.aplicarDescuento(20)
+);
+
+console.log(
+    "Precio después del descuento:",
+    producto.precio
+);
+
+
+
+/* 
+   3.2 Arreglos de objetos
+                            */
+
+const catalogo = [
+
+    {
+        nombre: "Teclado",
+        precio: 45,
+        categoria: "periféricos",
+        stock: 12
+    },
+
+    {
+        nombre: "Monitor",
+        precio: 180,
+        categoria: "pantallas",
+        stock: 5
+    },
+
+    {
+        nombre: "Mouse",
+        precio: 20,
+        categoria: "periféricos",
+        stock: 30
+    },
+
+    {
+        nombre: "Silla",
+        precio: 150,
+        categoria: "mobiliario",
+        stock: 0
+    }
+
+];
+
+
+// Productos con stock disponible
+function productosDisponibles(catalogo) {
+
+    return catalogo.filter(
+        producto => producto.stock > 0
+    );
+
+}
+
+console.log(
+    "Productos disponibles:",
+    productosDisponibles(catalogo)
+);
+
+
+// Nombres por categoría usando desestructuración
+function nombresPorCategoria(catalogo, categoria) {
+
+    return catalogo
+
+        .filter(
+            ({ categoria: cat }) => cat === categoria
+        )
+
+        .map(
+            ({ nombre }) => nombre
+        );
+}
+
+console.log(
+    "Productos periféricos:",
+    nombresPorCategoria(catalogo, "periféricos")
+);
+
+
+// Valor total del inventario
+function valorTotalInventario(catalogo) {
+
+    return catalogo.reduce(
+        (total, producto) =>
+            total + producto.precio * producto.stock,
+        0
+    );
+
+}
+
+console.log(
+    "Valor total del inventario:",
+    valorTotalInventario(catalogo)
+);
+
+
+// Producto más caro
+function productoMasCaro(catalogo) {
+
+    return catalogo.reduce(
+        (masCaro, producto) =>
+            producto.precio > masCaro.precio
+                ? producto
+                : masCaro
+    );
+
+}
+
+console.log(
+    "Producto más caro:",
+    productoMasCaro(catalogo)
+);
+
+
+
+/* 
+   PARTE 4: RETO INTEGRADOR
+                              */
+
+const ventas = [
+
+    {
+        producto: "Teclado",
+        cantidad: 3,
+        precioUnitario: 45
+    },
+
+    {
+        producto: "Monitor",
+        cantidad: 1,
+        precioUnitario: 180
+    },
+
+    {
+        producto: "Mouse",
+        cantidad: 5,
+        precioUnitario: 20
+    },
+
+    {
+        producto: "Teclado",
+        cantidad: 2,
+        precioUnitario: 45
+    },
+
+    {
+        producto: "Silla",
+        cantidad: 1,
+        precioUnitario: 150
+    }
+
+];
+
+
+function generarReporte(ventas) {
+
+    // Total de dinero vendido
+    const totalVendido = ventas.reduce(
+        (total, venta) =>
+            total + venta.cantidad * venta.precioUnitario,
+        0
+    );
+
+
+    // Número de transacciones
+    const numeroTransacciones = ventas.length;
+
+
+    // Agrupar las ventas por producto
+    const agrupado = ventas.reduce(
+        (acumulador, venta) => {
+
+            const {
+                producto,
+                cantidad,
+                precioUnitario
+            } = venta;
+
+
+            if (!acumulador[producto]) {
+
+                acumulador[producto] = {
+                    producto: producto,
+                    cantidadTotal: 0,
+                    ingresoTotal: 0
+                };
+
+            }
+
+
+            acumulador[producto].cantidadTotal += cantidad;
+
+            acumulador[producto].ingresoTotal +=
+                cantidad * precioUnitario;
+
+
+            return acumulador;
+
+        },
+        {}
+    );
+
+
+    // Convertir el objeto agrupado en arreglo
+    const resumenPorProducto = Object.values(agrupado);
+
+
+    // Encontrar producto con mayor cantidad vendida
+    const resumenOrdenado = [...resumenPorProducto]
+        .sort(
+            (a, b) =>
+                b.cantidadTotal - a.cantidadTotal
+        );
+
+
+    const productoTopVentas =
+        resumenOrdenado[0].producto;
+
+
+    // Devolver reporte
+    return {
+
+        totalVendido,
+        numeroTransacciones,
+        productoTopVentas,
+        resumenPorProducto
+
+    };
+
+}
+
+
+const reporte = generarReporte(ventas);
+
+
+console.log(
+    JSON.stringify(
+        reporte,
+        null,
+        2
+    )
+);
