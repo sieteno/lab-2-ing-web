@@ -1,0 +1,58 @@
+1. ¿Qué diferencia hay entre map y forEach?
+   ¿Cuándo usarías cada uno?
+
+map recorre un arreglo y devuelve un nuevo arreglo con los
+resultados de aplicar una función a cada elemento.
+
+forEach también recorre un arreglo, pero no devuelve un nuevo
+arreglo.
+
+Usaría map cuando necesito transformar los datos y obtener un
+nuevo arreglo. Usaría forEach cuando solamente necesito ejecutar
+una acción sobre cada elemento, por ejemplo imprimir información
+en consola.
+
+
+2. ¿Por qué reduce se considera el método "más general"
+   entre los métodos de arreglos vistos?
+
+reduce se considera más general porque permite recorrer todo un
+arreglo y acumular los resultados en un único valor. Ese valor
+puede ser un número, un arreglo, un objeto u otra estructura.
+
+Por ejemplo, puede utilizarse para sumar valores, encontrar
+máximos, agrupar elementos o construir objetos.
+
+
+3. Da un ejemplo real, fuera de este laboratorio,
+   donde modelarías datos como un arreglo de objetos.
+
+Un ejemplo sería una lista de estudiantes:
+
+const estudiantes = [
+    {
+        nombre: "Ana",
+        edad: 20,
+        promedio: 4.5
+    },
+    {
+        nombre: "Carlos",
+        edad: 21,
+        promedio: 4.2
+    }
+];
+
+Cada objeto representa un estudiante y el arreglo contiene
+a todos los estudiantes.
+
+
+4. ¿Qué ventaja tiene evitar mutar arreglos y objetos
+   directamente?
+
+Evitar la mutación ayuda a conservar los datos originales y
+reduce la posibilidad de producir cambios inesperados en otras
+partes del programa.
+
+Además, facilita entender, probar y depurar el código porque las
+funciones pueden generar nuevos valores sin alterar los datos
+que recibieron.
